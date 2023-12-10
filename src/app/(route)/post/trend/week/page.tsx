@@ -1,12 +1,10 @@
 "use client";
-
 import React from "react";
-import Loading from "@/components/Loading";
-import PostCard from "@/components/PostCard";
 import { getPostAll } from "@/service/post.service";
 import { nanoid } from "@reduxjs/toolkit";
 import { useQuery } from "@tanstack/react-query";
 import { DateUtil } from "@/utils";
+import { Loading, PostCard } from "@/components";
 
 export default function Week() {
   const { data, isLoading } = useQuery({

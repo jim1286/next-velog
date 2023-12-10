@@ -1,11 +1,11 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
+import { useModal } from "./hook";
+import { Modal } from "@/components";
 import TabLink from "./components/TabLink";
 import LoginModalFooter from "./components/LoginModalFooter";
 import LoginModalBody from "./components/LoginModalBody";
-import { useModal } from "./hook";
-import Modal from "@/components/Modal";
 
 export default function PostLayout({
   children,
