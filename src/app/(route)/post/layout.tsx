@@ -4,13 +4,15 @@ import { ChangeEvent } from "react";
 import { useModal } from "./hook";
 import { Modal } from "@/components";
 import Tab from "./components/Tab";
-import LoginModalFooter from "./components/LoginModalFooter";
-import LoginModalBody from "./components/LoginModalBody";
+import SignInModalBody from "./components/SignInModalBody";
+import SignInModalFooter from "./components/SignInModalFooter";
+import SignUpModalBody from "./components/SignUpModalBody";
+import SignUpModalFooter from "./components/SignUpModalFooter";
 
 export default function PostLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathName = usePathname();
-  const { isOpen, handleOpen, handleClose, handleLogin } = useModal();
+  const { isSignInOpen, isSignUpOpen, handleOpenSignIn, handleCloseSignIn, handleSignIn, handleOpenSignUp, handleCloseSignUp, handleSingUp } = useModal();
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
     router.push(e.target.value);
@@ -21,7 +23,7 @@ export default function PostLayout({ children }: { children: React.ReactNode }) 
       <div>
         <div className="flex text-2xl text-slate-950 p-5 justify-between">
           Belog
-          <button onClick={handleOpen} className="rounded-3xl text-base bg-black text-teal-50 p-2 w-20 text-center">
+          <button onClick={handleOpenSignIn} className="rounded-3xl text-base bg-black text-teal-50 p-2 w-20 text-center">
             로그인
           </button>
         </div>
@@ -45,12 +47,20 @@ export default function PostLayout({ children }: { children: React.ReactNode }) 
       </div>
       {children}
       <Modal
-        open={isOpen}
+        open={isSignInOpen}
         title={<div className="text-xl text-slate-950">로그인</div>}
-        body={<LoginModalBody onLogin={handleLogin} />}
-        footer={<LoginModalFooter />}
+        body={<SignInModalBody onLogin={handleSignIn} />}
+        footer={<SignInModalFooter openSignUp={handleOpenSignUp} />}
         activeCloseButton
-        onClose={handleClose}
+        onClose={handleCloseSignIn}
+      />
+      <Modal
+        open={isSignUpOpen}
+        title={<div className="text-xl text-slate-950">회원가입</div>}
+        body={<SignUpModalBody onSignUp={handleSingUp} />}
+        footer={<SignUpModalFooter openSignIn={handleOpenSignIn} />}
+        activeCloseButton
+        onClose={handleCloseSignIn}
       />
     </div>
   );

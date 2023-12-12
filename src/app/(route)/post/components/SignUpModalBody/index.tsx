@@ -5,10 +5,10 @@ import { useLoginForm } from "./hook";
 import { PostLoginRequest } from "@/http/request/auth.request";
 
 type Props = {
-  onLogin: (formInfo: PostLoginRequest) => void;
+  onSignUp: (formInfo: PostLoginRequest) => void;
 };
 
-const LoginModalBody = ({ onLogin }: Props) => {
+const SignUpModalBody = ({ onSignUp }: Props) => {
   const { formInfo, formValidate, handleInputChange } = useLoginForm();
   const disableSubmit = Object.values(formValidate).some((validate) => validate !== "valid");
 
@@ -31,11 +31,11 @@ const LoginModalBody = ({ onLogin }: Props) => {
           className="flex-grow border-2 border-velogauthgray-100 p-2"
         />
       </div>
-      <button disabled={disableSubmit} onClick={() => onLogin(formInfo)} className="w-14 h-24 bg-lime-500 text-cyan-50 disabled:opacity-25">
-        로그인
+      <button disabled={disableSubmit} onClick={() => onSignUp(formInfo)} className="w-14 h-24 bg-lime-500 text-cyan-50 disabled:opacity-25">
+        회원가입
       </button>
     </div>
   );
 };
 
-export default LoginModalBody;
+export default SignUpModalBody;

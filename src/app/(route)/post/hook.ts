@@ -4,8 +4,18 @@ import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 export const useModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const loginMutation = useMutation({
+  const [isSignInOpen, setIsSignInOpen] = useState(false);
+  const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+  const signInMutation = useMutation({
+    mutationFn: AuthService.postLogin,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const signUpMutation = useMutation({
     mutationFn: AuthService.postLogin,
     onSuccess: (data) => {
       console.log(data);
@@ -15,17 +25,31 @@ export const useModal = () => {
     },
   });
 
-  const handleOpen = () => {
-    setIsOpen(true);
+  const handleOpenSignIn = () => {
+    setIsSignInOpen(true);
+    setIsSignUpOpen(false);
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
+  const handleCloseSignIn = () => {
+    setIsSignInOpen(false);
   };
 
-  const handleLogin = async (params: PostLoginRequest) => {
-    loginMutation.mutate(params);
+  const handleSignIn = async (params: PostLoginRequest) => {
+    signInMutation.mutate(params);
   };
 
-  return { isOpen, handleOpen, handleClose, handleLogin };
+  const handleOpenSignUp = () => {
+    setIsSignInOpen(false);
+    setIsSignUpOpen(true);
+  };
+
+  const handleCloseSignUp = () => {
+    setIsSignUpOpen(false);
+  };
+
+  const handleSingUp = () => {
+    signUpMutation.mutate;
+  };
+
+  return { isSignInOpen, isSignUpOpen, handleOpenSignIn, handleCloseSignIn, handleSignIn, handleOpenSignUp, handleCloseSignUp, handleSingUp };
 };
