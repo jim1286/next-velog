@@ -12,7 +12,7 @@ interface Props {
 
 export default function Post({ params }: Props) {
   const { data, isLoading } = useQuery({
-    queryKey: ["postList", params.postId],
+    queryKey: ["post", params.postId],
     queryFn: () => PostService.getPost(params.postId),
   });
 
