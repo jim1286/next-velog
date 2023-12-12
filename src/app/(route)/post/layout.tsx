@@ -3,15 +3,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent } from "react";
 import { useModal } from "./hook";
 import { Modal } from "@/components";
-import TabLink from "./components/TabLink";
+import Tab from "./components/Tab";
 import LoginModalFooter from "./components/LoginModalFooter";
 import LoginModalBody from "./components/LoginModalBody";
 
-export default function PostLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function PostLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathName = usePathname();
   const { isOpen, handleOpen, handleClose, handleLogin } = useModal();
@@ -25,16 +21,13 @@ export default function PostLayout({
       <div>
         <div className="flex text-2xl text-slate-950 p-5 justify-between">
           Belog
-          <button
-            onClick={handleOpen}
-            className="rounded-3xl text-base bg-black text-teal-50 p-2 w-20 text-center"
-          >
+          <button onClick={handleOpen} className="rounded-3xl text-base bg-black text-teal-50 p-2 w-20 text-center">
             로그인
           </button>
         </div>
         <div className="flex">
-          <TabLink tabRoute="trend" href="/post/trend/week" title="트렌딩" />
-          <TabLink tabRoute="recent" href="/post/recent" title="최신" />
+          <Tab tabRoute="trend" href="/post/trend/week" title="트렌딩" />
+          <Tab tabRoute="recent" href="/post/recent" title="최신" />
           {pathName.includes("trend") && (
             <select
               id="trends"

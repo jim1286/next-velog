@@ -1,13 +1,5 @@
-export interface GetPostAllResponse {
-  postId: number;
-  title: string;
-  subTitle: string;
-  contents: string;
-  url: string;
-  publicStatus: true;
-  description: string;
-  createdAt: Date;
-  updatedAt: Date;
-  likes: number;
-  userId: number;
-}
+import { Post } from "@/interface";
+
+export interface GetPostResponse extends Post {}
+
+export interface GetPostAllResponse extends Post {}

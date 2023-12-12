@@ -1,4 +1,4 @@
 export interface PostLoginResponse {
-  userId: number;
+  userId: string;
   message: string;
 }

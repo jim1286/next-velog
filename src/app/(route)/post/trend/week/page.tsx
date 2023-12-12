@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
-import { getPostAll } from "@/service/post.service";
 import { nanoid } from "@reduxjs/toolkit";
 import { useQuery } from "@tanstack/react-query";
 import { DateUtil } from "@/utils";
 import { Loading, PostCard } from "@/components";
+import { PostService } from "@/service";
 
 export default function Week() {
   const { data, isLoading } = useQuery({
     queryKey: ["postList"],
-    queryFn: async () => await getPostAll(),
+    queryFn: PostService.getPostAll,
   });
 
   return (
@@ -18,6 +18,7 @@ export default function Week() {
         data.map((post) => (
           <PostCard
             key={nanoid()}
+            postId={post.postId}
             title={post.title}
             userId={post.userId}
             likes={post.likes}
