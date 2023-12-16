@@ -1,4 +1,3 @@
-export interface PostLoginResponse {
-  userId: string;
-  message: string;
-}
+import { User } from "@/interface";
+
+export interface PostLoginResponse extends User {}

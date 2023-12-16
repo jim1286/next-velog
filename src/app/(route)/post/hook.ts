@@ -1,15 +1,18 @@
 import { PostLoginRequest } from "@/http/request/auth.request";
+import { setUser } from "@/redux/features";
 import { AuthService } from "@/service";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export const useModal = () => {
+  const dispatch = useDispatch();
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const signInMutation = useMutation({
     mutationFn: AuthService.postLogin,
     onSuccess: (data) => {
-      console.log(data);
+      dispatch(setUser(data));
     },
     onError: (error) => {
       console.log(error);
@@ -51,5 +54,14 @@ export const useModal = () => {
     signUpMutation.mutate;
   };
 
-  return { isSignInOpen, isSignUpOpen, handleOpenSignIn, handleCloseSignIn, handleSignIn, handleOpenSignUp, handleCloseSignUp, handleSingUp };
+  return {
+    isSignInOpen,
+    isSignUpOpen,
+    handleOpenSignIn,
+    handleCloseSignIn,
+    handleSignIn,
+    handleOpenSignUp,
+    handleCloseSignUp,
+    handleSingUp,
+  };
 };
