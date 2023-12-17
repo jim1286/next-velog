@@ -1,3 +1,7 @@
-import { User } from "@/interface";
+import { JwtTokens, User } from "@/interface";
 
-export interface PostLoginResponse extends User {}
+export interface PostSignInResponse extends JwtTokens {}
+
+export interface PostSignUpResponse extends User {}
+
+export interface GetUserResponse extends User {}

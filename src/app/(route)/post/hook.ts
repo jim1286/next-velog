@@ -1,27 +1,28 @@
-import { PostLoginRequest } from "@/http/request/auth.request";
-import { setUser } from "@/redux/features";
-import { AuthService } from "@/service";
-import { useMutation } from "@tanstack/react-query";
+import { PostSignInRequest, PostSignUpRequest } from "@/http";
+import { AuthService, TokenService } from "@/service";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
 export const useModal = () => {
-  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
   const signInMutation = useMutation({
-    mutationFn: AuthService.postLogin,
-    onSuccess: (data) => {
-      dispatch(setUser(data));
+    mutationFn: AuthService.postSignIn,
+    onSuccess: async (data) => {
+      TokenService.setToken(data);
+      await queryClient.invalidateQueries({ queryKey: ["user"] });
+      setIsSignInOpen(false);
     },
     onError: (error) => {
       console.log(error);
     },
   });
   const signUpMutation = useMutation({
-    mutationFn: AuthService.postLogin,
-    onSuccess: (data) => {
-      console.log(data);
+    mutationFn: AuthService.postSignUp,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user"] });
+      setIsSignUpOpen(false);
     },
     onError: (error) => {
       console.log(error);
@@ -37,7 +38,7 @@ export const useModal = () => {
     setIsSignInOpen(false);
   };
 
-  const handleSignIn = async (params: PostLoginRequest) => {
+  const handleSignIn = async (params: PostSignInRequest) => {
     signInMutation.mutate(params);
   };
 
@@ -50,8 +51,11 @@ export const useModal = () => {
     setIsSignUpOpen(false);
   };
 
-  const handleSingUp = () => {
-    signUpMutation.mutate;
+  const handleSignUp = (params: PostSignUpRequest) => {
+    params.name = params.userName;
+
+    console.log(params);
+    signUpMutation.mutate(params);
   };
 
   return {
@@ -62,6 +66,6 @@ export const useModal = () => {
     handleSignIn,
     handleOpenSignUp,
     handleCloseSignUp,
-    handleSingUp,
+    handleSignUp,
   };
 };

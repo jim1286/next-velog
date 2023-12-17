@@ -5,11 +5,11 @@ import { useEffect, useState } from "react";
 export const useLoginForm = () => {
   const validate = useValidate();
   const [formInfo, setFormInfo] = useState({
-    email: "",
+    userName: "",
     password: "",
   });
   const [formValidate, setFormValidate] = useState<LoginFormValidateType>({
-    email: LoginValidEnum.NULL,
+    userName: LoginValidEnum.NULL,
     password: LoginValidEnum.NULL,
   });
 
@@ -52,7 +52,7 @@ const useValidate = () => {
     newFormValidate: LoginFormValidateType
   ) => {
     switch (key) {
-      case "email":
+      case "userName":
       case "password": {
         newFormValidate[key] = checkSpace(value);
         break;

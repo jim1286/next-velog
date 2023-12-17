@@ -1,11 +1,12 @@
 import { LoginValidEnum } from "@/enums";
 
 export interface LoginFormType {
-  email: string;
+  userName: string;
   password: string;
 }
 
 export interface LoginFormValidateType {
-  email: LoginValidEnum;
+  name?: LoginValidEnum;
+  userName: LoginValidEnum;
   password: LoginValidEnum;
 }

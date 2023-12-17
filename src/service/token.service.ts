@@ -34,6 +34,11 @@ export const getToken = () => {
   return undefined;
 };
 
+export const clearToken = () => {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+};
+
 export const clear = () => {
   localStorage.clear();
 };

@@ -1,4 +1,5 @@
 export interface User {
   userId: string;
-  message: string;
+  name: string;
+  userName: string;
 }

@@ -2,7 +2,6 @@ import axios from "axios";
 import { getToken } from "./token.service";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: 1000 * 15,
 });
 
